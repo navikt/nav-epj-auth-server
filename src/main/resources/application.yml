@@ -1,0 +1,78 @@
+server:
+  port: 6969
+
+logging:
+  level:
+    org.springframework.security: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /internal/actuator
+
+spring:
+  main:
+    banner-mode: off
+  application:
+    name: nav-epj-auth-server
+  security:
+    user:
+      name: "user"
+      password: "{noop}password"
+      # roles:
+      #  - "LE_4"å
+    oauth2:
+      authorizationserver:
+        client:
+          syk-inn:
+            registration:
+              client-id: "syk-inn"
+              #client-secret: "{noop}nav-fhir-server-secret"
+              client-authentication-methods:
+                - "private_key_jwt"
+              authorization-grant-types:
+                - "client_credentials"
+                - "authorization_code"
+                - "refresh_token"
+              redirect-uris:
+                - "http://localhost:3000/fhir/"
+                - "https://syk-inn.ekstern.dev.nav.no/fhir"
+              scopes:
+                - "openid"
+                - "profile"
+                - "fhirUser"
+                - "launch"
+                - "patient/*.read"
+                - "user/*.read"
+                - "offline_access"
+            # jwk-set-uri: "http://localhost:3000/oauth2/jwks" # TODO only necessary for opaque access tokens
+            # jwk-set-uri: "https://syk-inn.ekstern.dev.nav.no/jwks"
+            require-authorization-consent: false
+            token-endpoint-authentication-signing-algorithm: "RS256"
+          nav-smart-on-fhir-example:
+            registration:
+              client-id: "NAV_SMART_on_FHIR_example"
+              # client-secret: "{noop}nav-smart-on-fhir-example-secret" TODO not necessary for private_key_jwt
+              client-authentication-methods:
+                - "private_key_jwt"
+              authorization-grant-types:
+                - "client_credentials"
+                - "authorization_code"
+                - "refresh_token"
+              redirect-uris:
+                - "http://localhost:5173/"
+                - "https://nav-on-fhir.ekstern.dev.nav.no/"
+              scopes:
+                - "openid"
+                - "profile"
+                - "fhirUser"
+                - "launch"
+                - "patient/*.*"
+                - "user/*.*"
+                - "offline_access"
+            # jwk-set-uri: "http://localhost:5173/oauth2/jwks" # TODO only necessary for opaque access tokens
+            # jwk-set-uri: "https://nav-on-fhir.ekstern.dev.nav.no/jwks"
+            require-authorization-consent: true
+            token-endpoint-authentication-signing-algorithm: "RS256"

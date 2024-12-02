@@ -17,6 +17,9 @@ spec:
       rules:
         - application: nav-fhir-server-wonderwall
         - application: nav-fhir-server
+        - application: syk-inn
+  ingresses:
+    - 'https://auth.fhir.ekstern.dev.nav.no'
   liveness:
     path: /internal/actuator/health
   readiness:

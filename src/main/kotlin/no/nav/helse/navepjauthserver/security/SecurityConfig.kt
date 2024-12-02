@@ -27,6 +27,9 @@ class SecurityConfig() {
     http.securityMatcher(authConfig.endpointsMatcher).with(authConfig) { authServer ->
       authServer.oidc(Customizer.withDefaults())
     }
+      .headers { headers ->
+        headers.frameOptions { frameOptions -> frameOptions.sameOrigin() }
+      }
       .exceptionHandling { exHandler ->
         exHandler.defaultAuthenticationEntryPointFor(
           LoginUrlAuthenticationEntryPoint("/login"),

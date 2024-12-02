@@ -1,0 +1,43 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: nav-epj-auth-server
+  namespace: helseopplysninger
+  labels:
+    team: helseopplysninger
+spec:
+  image: {{image}}
+  replicas:
+    min: 1
+    max: 2
+    cpuThresholdPercentage: 90
+  port: 9000
+  accessPolicy:
+    inbound:
+      rules:
+        - application: nav-fhir-server-wonderwall
+        - application: nav-fhir-server
+  liveness:
+    path: /internal/actuator/health
+  readiness:
+    path: /internal/actuator/health
+  startup:
+    path: /internal/actuator/health
+    initialDelay: 30
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: java
+    logging:
+      destinations:
+        - id: loki
+        - id: elastic
+  resources:
+    limits:
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: "dev"

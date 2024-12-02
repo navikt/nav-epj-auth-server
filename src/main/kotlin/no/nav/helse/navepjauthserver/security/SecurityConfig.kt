@@ -46,6 +46,7 @@ class SecurityConfig() {
       authorizeHttpRequests {
         authorize("/login/**", permitAll)
         authorize("/error/**", permitAll)
+        authorize("/internal/**", permitAll)
         authorize(anyRequest, authenticated)
       }
       csrf { disable() }

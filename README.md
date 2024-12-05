@@ -23,16 +23,15 @@ Here is a mermaid chart explaining the entire flow
 
 ```mermaid
 ---
-title: NAV FHIR server w/ Auth + Wonderwall proxy + HelseID
+title: NAV EPJ | NAV FHIR server | NAV Auth | HelseID
 ---
 sequenceDiagram
     actor DOC as Doctor (Grønn Vits)
-    participant EHR as EHR system
+    participant EHR as EHR system + Wonderwall
     participant AUTH as Auth server
+    participant HID as HelseID
     participant FHIR as FHIR server
     participant NAV as NAV SMART on FHIR app
-    participant WALL as Wonderwall
-    participant HID as HelseID
     actor PAT as Patient (Dolly data)
     
     critical predondition 
@@ -41,11 +40,8 @@ sequenceDiagram
     end
     DOC ->> EHR: Login to EHR
     EHR -->> AUTH:  Authorization requested
-    AUTH -->> DOC: Redirect to HelseID for login
-    DOC ->> WALL: Login via ID-porten
-    WALL ->> HID: Login via ID-porten
-    HID ->> WALL: id_token, access_token, refresh_token
-    WALL -->> AUTH: id_token, access_token, refresh_token
+    AUTH ->> HID: Login via ID-porten
+    HID ->> AUTH: id_token, access_token, refresh_token
     AUTH -->> EHR:  Authorization granted
     EHR -->> FHIR:  Get user data (FHIR)
     PAT -->> DOC: Comes in for appointment

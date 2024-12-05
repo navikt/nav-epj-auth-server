@@ -27,7 +27,7 @@ title: NAV EPJ | NAV FHIR server | NAV Auth | HelseID
 ---
 sequenceDiagram
     actor DOC as Doctor (Grønn Vits)
-    participant EHR as EHR system
+    participant EHR as EHR system + Wonderwall
     participant AUTH as Auth server
     participant HID as HelseID
     participant FHIR as FHIR server

@@ -3,6 +3,6 @@ WORKDIR /app
 COPY build/libs/*.jar app.jar
 ENV JAVA_OPTS="-Dlogback.configurationFile=logback.xml"
 ENV TZ="Europe/Oslo"
-EXPOSE 8080
+EXPOSE 9000
 USER nonroot
 CMD [ "app.jar" ]

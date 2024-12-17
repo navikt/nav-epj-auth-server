@@ -43,6 +43,7 @@ class SecurityConfig() {
   @Order(2)
   fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
     http {
+      securityMatcher("/**")
       authorizeHttpRequests {
         authorize("/login/**", permitAll)
         authorize("/error/**", permitAll)

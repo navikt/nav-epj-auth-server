@@ -1,7 +1,7 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: nav-epj
+  name: nav-epj-auth-server
   namespace: helseopplysninger
   labels:
     team: helseopplysninger

@@ -1,4 +1,3 @@
-import com.google.cloud.tools.jib.api.Jib
 import org.cyclonedx.gradle.CycloneDxTask
 
 plugins {
@@ -27,11 +26,9 @@ repositories {
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-oauth2-authorization-server")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
-
+  implementation("net.logstash.logback:logstash-logback-encoder:8.0")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
-
   developmentOnly("org.springframework.boot:spring-boot-devtools")
-
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 

@@ -1,0 +1,46 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: nav-epj-auth-server
+  namespace: tsm
+  labels:
+    team: tsm
+spec:
+  image: {{ image }}
+  replicas:
+    min: 1
+    max: 2
+    cpuThresholdPercentage: 90
+  port: 9000
+  accessPolicy:
+    inbound:
+      rules:
+        - application: nav-fhir-server-wonderwall
+        - application: nav-fhir-server
+        - application: syk-inn
+  ingresses:
+    - 'https://auth.fhir.ekstern.dev.nav.no'
+  liveness:
+    path: /internal/actuator/health
+  readiness:
+    path: /internal/actuator/health
+  startup:
+    path: /internal/actuator/health
+    initialDelay: 30
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: java
+    logging:
+      destinations:
+        - id: loki
+        - id: elastic
+  resources:
+    limits:
+      memory: 512Mi
+    requests:
+      cpu: 30m
+      memory: 256Mi
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: "dev"

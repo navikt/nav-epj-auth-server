@@ -3,8 +3,9 @@ plugins {
   kotlin("plugin.spring") version "2.0.21"
   id("org.springframework.boot") version "3.4.0"
   id("io.spring.dependency-management") version "1.1.6"
-  id ("com.google.cloud.tools.jib' version '3.4.4")
+  id ("com.google.cloud.tools.jib") version "3.4.4"
 }
+
 
 group = "no.nav.helse"
 version = "0.0.1-SNAPSHOT"

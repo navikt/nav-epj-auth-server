@@ -39,5 +39,5 @@ spec:
     requests:
       cpu: 100m
       memory: 256Mi
-  env:
-    port: {{port}}
+env:
+  port: {{port}}

@@ -13,7 +13,7 @@ spec:
     cpuThresholdPercentage: 90
   port: 9000
   ingresses:
-    - "https://nav-epj.ekstern.dev.nav.no/"
+    - "https://auth.fhir.ekstern.dev.nav.no"
   liveness:
     path: /internal/actuator/health
   readiness:

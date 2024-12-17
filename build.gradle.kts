@@ -1,3 +1,5 @@
+import org.cyclonedx.gradle.CycloneDxTask
+
 plugins {
   kotlin("jvm") version "2.1.0"
   kotlin("plugin.spring") version "2.1.0"
@@ -41,9 +43,19 @@ kotlin {
   }
 }
 
-tasks.withType<Test> {
-  useJUnitPlatform()
-}
-tasks.cyclonedxBom {
-  setIncludeConfigs(listOf("runtimeClasspath", "compileClasspath"))
+tasks {
+  withType<Test> {
+    useJUnitPlatform {
+    }
+    testLogging {
+      events("skipped", "failed")
+      showStackTraces = true
+      exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+    }
+  }
+
+  withType<CycloneDxTask>{
+    setIncludeConfigs(listOf("runtimeClasspath", "compileClasspath"))
+  }
+
 }

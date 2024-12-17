@@ -25,6 +25,9 @@ spec:
     inbound:
       rules:
         - application: nav-fhir-server
+    outbound:
+      external:
+        - host: helseid-sts.test.nhn.no
   observability:
     autoInstrumentation:
       enabled: true

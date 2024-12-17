@@ -4,6 +4,7 @@ plugins {
   id("org.springframework.boot") version "3.4.0"
   id("io.spring.dependency-management") version "1.1.6"
   id ("com.google.cloud.tools.jib") version "3.4.4"
+  id ("org.cyclonedx.bom") version "1.10.0"
 }
 
 
@@ -42,4 +43,7 @@ kotlin {
 
 tasks.withType<Test> {
   useJUnitPlatform()
+}
+tasks.cyclonedxBom {
+  setIncludeConfigs(listOf("runtimeClasspath", "compileClasspath"))
 }

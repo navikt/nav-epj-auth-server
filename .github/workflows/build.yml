@@ -46,14 +46,14 @@ jobs:
         id: kompiler
         run: |
           echo "image=${{env.IMAGE}}:${{env.TAG}}" >> $GITHUB_OUTPUT
-          ./gradlew -Dspring.profiles.active=local -DGAR_TOKEN=${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} -Djib.to.image=${{env.IMAGE}}:${{env.TAG}} -Djib.to.tags=latest,${TAG} -Drevision=${TAG}  jib  
+          ./gradlew -Dspring.profiles.active=local -DGAR_TOKEN=${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} -Djib.to.image=${{env.IMAGE}}:${{env.TAG}} -Djib.to.tags=latest,${TAG} -Drevision=${TAG}  jib cyclonedxBom 
           echo "DIGEST=$(cat build/jib-image.digest)" >> $GITHUB_ENV
 
       - name: Attest and sign
         uses: nais/attest-sign@v1.5.8
         with:
           image_ref: ${{env.IMAGE}}@${{env.DIGEST}}
-          sbom: target/classes/META-INF/sbom/application.cdx.json
+          sbom: build/reports/application.cdx.json
   deploy:
     permissions:
       contents: write

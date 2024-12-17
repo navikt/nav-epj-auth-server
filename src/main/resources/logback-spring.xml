@@ -10,13 +10,13 @@
         <logger name="securelog" level="debug" additivity="false">
             <appender-ref ref="stdout"/>
         </logger>
-        <logger name="org.springframework.boot.context.properties" level="trace"/>
         <logger name="no.nav" level="trace"/>
     </springProfile>
     <springProfile name="gcp">
         <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
             <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
         </appender>
+        <logger name="org.springframework.security" level="trace"/>
     </springProfile>
     <root level="info">
         <appender-ref ref="stdout"/>

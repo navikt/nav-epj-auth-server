@@ -46,7 +46,7 @@ jobs:
         id: kompiler
         run: |
           echo "image=${{env.IMAGE}}:${{env.TAG}}" >> $GITHUB_OUTPUT
-          ./gradlew -Dspring.profiles.active=local -DGAR_TOKEN=${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} -Djib.to.image=${{env.IMAGE}}:${{env.TAG}} -Djib.to.tags=latest,${TAG} -Djib.ports=9000 -Drevision=${TAG}  jib cyclonedxBom 
+          ./gradlew -Dspring.profiles.active=local -DGAR_TOKEN=${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} -Djib.to.image=${{env.IMAGE}}:${{env.TAG}} -Djib.to.tags=latest,${TAG} -Drevision=${TAG}  jib cyclonedxBom 
           echo "DIGEST=$(cat build/jib-image.digest)" >> $GITHUB_ENV
 
       - name: Attest and sign
@@ -69,6 +69,7 @@ jobs:
       PRINT_PAYLOAD: true
       TIMEOUT: 30m
       RESOURCE: .nais/naiserator.yaml
+      VARS: .nais/vars.json
       CLUSTER: ${{matrix.cluster}}
       IMAGE: ${{needs.bygg.outputs.image}}
     steps:

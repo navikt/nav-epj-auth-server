@@ -11,9 +11,9 @@ spec:
     min: 1
     max: 2
     cpuThresholdPercentage: 90
-  port: 9000
+  port: {{port}}
   ingresses:
-    - "https://auth.fhir.ekstern.dev.nav.no"
+    - {{ingress}}
   liveness:
     path: /internal/actuator/health
   readiness:
@@ -39,3 +39,5 @@ spec:
     requests:
       cpu: 100m
       memory: 256Mi
+  env:
+    port: {{port}}

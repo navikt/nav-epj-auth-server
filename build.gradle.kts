@@ -1,3 +1,4 @@
+import com.google.cloud.tools.jib.api.Jib
 import org.cyclonedx.gradle.CycloneDxTask
 
 plugins {
@@ -40,6 +41,12 @@ dependencies {
 kotlin {
   compilerOptions {
     freeCompilerArgs.addAll("-Xjsr305=strict")
+  }
+}
+
+jib {
+  container {
+    ports = listOf(System.getenv("port"))
   }
 }
 

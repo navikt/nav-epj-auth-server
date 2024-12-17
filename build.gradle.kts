@@ -46,7 +46,7 @@ kotlin {
 
 jib {
   container {
-    ports = listOf(System.getenv("port"))
+    ports = listOf(System.getenv("port") ?: "9000")
   }
 }
 

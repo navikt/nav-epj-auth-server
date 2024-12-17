@@ -40,13 +40,13 @@ jobs:
         with:
           java-version: 21
           distribution: temurin
-          cache: maven
+          cache: gradle
 
       - name: Kompilerer, bygger  og pusher image
         id: kompiler
         run: |
           echo "image=${{env.IMAGE}}:${{env.TAG}}" >> $GITHUB_OUTPUT
-          ./mvnw -Dspring.profiles.active=local -DGAR_TOKEN=${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} -Djib.to.tags=latest,${TAG} -Drevision=${TAG}  package jib:build  
+          ./gradlew -Dspring.profiles.active=local -DGAR_TOKEN=${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} -Djib.to.tags=latest,${TAG} -Drevision=${TAG}  jib  
           echo "DIGEST=$(cat target/jib-image.digest)" >> $GITHUB_ENV
 
       - name: Attest and sign

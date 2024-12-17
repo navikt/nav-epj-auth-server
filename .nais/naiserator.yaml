@@ -15,9 +15,9 @@ spec:
   ingresses:
     - {{ingress}}
   liveness:
-    path: /internal/actuator/health
+    path: /internal/actuator/liveness
   readiness:
-    path: /internal/actuator/health
+    path: /internal/actuator/readiness
   startup:
     path: /internal/actuator/health
     initialDelay: 30

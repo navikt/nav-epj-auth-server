@@ -18,24 +18,27 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity(debug = true)
-class SecurityConfig() {
+class SecurityConfig {
 
   @Bean
   @Order(1)
   fun authorizationServerSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
-    val authConfig = OAuth2AuthorizationServerConfigurer.authorizationServer()
-    http.securityMatcher(authConfig.endpointsMatcher).with(authConfig) { authServer ->
-      authServer.oidc(Customizer.withDefaults())
-    }
-      .headers { headers ->
-        headers.frameOptions { frameOptions -> frameOptions.sameOrigin() }
+    val authConfig = OAuth2AuthorizationServerConfigurer()
+    http {
+      securityMatcher(authConfig.endpointsMatcher)
+      with(authConfig) {
+        oidc { Customizer.withDefaults<OAuth2AuthorizationServerConfigurer>() }
       }
-      .exceptionHandling { exHandler ->
-        exHandler.defaultAuthenticationEntryPointFor(
+      headers {
+        frameOptions { sameOrigin }
+      }
+      exceptionHandling {
+        defaultAuthenticationEntryPointFor(
           LoginUrlAuthenticationEntryPoint("/login"),
           MediaTypeRequestMatcher(MediaType.TEXT_HTML)
         )
       }
+    }
     return http.build()
   }
 

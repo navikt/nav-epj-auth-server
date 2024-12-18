@@ -11,6 +11,7 @@ spec:
     min: 1
     max: 2
     cpuThresholdPercentage: 90
+  port: 8080
   ingresses:
     - {{ingress}}
   liveness:

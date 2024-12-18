@@ -4,6 +4,10 @@ management:
       exposure:
         include: "*"
       base-path: /internal/actuator
+  endpoint:
+    health:
+      probes:
+        enabled: true
 
 spring:
   main:

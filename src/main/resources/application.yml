@@ -13,7 +13,7 @@ spring:
   security:
     user:
       name: "user"
-      password: "{noop}password"
+      password: "password"
       # roles:
       #  - "LE_4"å
     oauth2:

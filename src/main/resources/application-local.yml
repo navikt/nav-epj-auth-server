@@ -1,2 +1,7 @@
 server:
   port: 9000
+management:
+    endpoint:
+      health:
+        probes:
+          enabled: true

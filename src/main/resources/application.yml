@@ -3,7 +3,7 @@ management:
     web:
       exposure:
         include: "*"
-      base-path: /internal/monitoring
+      base-path: /internal/monitoring/
 
 spring:
   main:

@@ -1,4 +1,3 @@
 {
-  "port": "9000",
   "ingress": "https://auth.fhir.ekstern.dev.nav.no"
 }

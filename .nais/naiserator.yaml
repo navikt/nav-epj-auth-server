@@ -15,9 +15,9 @@ spec:
   ingresses:
     - {{ingress}}
   liveness:
-    path: /internal/monitoring/liveness
+    path: /internal/monitoring/health/liveness
   readiness:
-    path: /internal/monitoring/readiness
+    path: /internal/monitoring/health/readiness
     initialDelay: 30
   accessPolicy:
     inbound:

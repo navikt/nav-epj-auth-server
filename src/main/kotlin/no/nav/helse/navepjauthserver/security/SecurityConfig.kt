@@ -49,7 +49,7 @@ class SecurityConfig {
       authorizeHttpRequests {
         authorize("/login/**", permitAll)
         authorize("/error/**", permitAll)
-        authorize("/internal/monitoring/**", permitAll)
+        authorize("/monitoring/**", permitAll)
         authorize(anyRequest, authenticated)
       }
       csrf { disable() }

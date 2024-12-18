@@ -18,8 +18,6 @@ spec:
     path: /internal/monitoring/health
   readiness:
     path: /internal/monitoring/health
-  startup:
-    path: /internal/monitoring/health
     initialDelay: 30
   accessPolicy:
     inbound:

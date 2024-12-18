@@ -1,23 +1,25 @@
 package no.nav.helse.navepjauthserver.security
 
+import com.nimbusds.jose.jwk.JWK
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.annotation.Order
-import org.springframework.http.MediaType
 import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint
-import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
-class SecurityConfig {
+class SecurityConfig(
+ @Value("\${helseid.openid.jwk}") private val helseidOpenJwk: String,
+) {
+
+  private val helseIdJwk = JWK.parse(helseidOpenJwk)
 
   @Bean
   @Order(1)
@@ -31,12 +33,7 @@ class SecurityConfig {
       headers {
         frameOptions { sameOrigin }
       }
-      exceptionHandling {
-        defaultAuthenticationEntryPointFor(
-          LoginUrlAuthenticationEntryPoint("/login"),
-          MediaTypeRequestMatcher(MediaType.TEXT_HTML)
-        )
-      }
+
     }
     return http.build()
   }
@@ -53,8 +50,8 @@ class SecurityConfig {
         authorize(anyRequest, authenticated)
       }
       csrf { disable() }
-      cors { configurationSource = corsConfigurationSource() }
-      formLogin { }
+      cors { configurationSource = corsConfigurationSource()
+      }
     }
     return http.build()
   }

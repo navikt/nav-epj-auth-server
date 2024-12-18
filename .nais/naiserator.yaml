@@ -40,3 +40,5 @@ spec:
     requests:
       cpu: 100m
       memory: 256Mi
+  envFrom:
+    - secret: epj-auth-secrets

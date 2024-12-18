@@ -11,21 +11,15 @@ spring:
   application:
     name: nav-epj-auth-server
   security:
-    user:
-      name: "user"
-      password: "password"
-      # roles:
-      #  - "LE_4"å
     oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "https://helseid-sts.test.nhn.no"
       client:
-        provider:
-          helseid:
-            issuer-uri: "https://helseid-sts.test.nhn.no"
         registration:
           helseid:
             provider: helseid
-            client-id: "a client id"
-            client-secret: "a secret"
+            client-id: 14c1f2b2-885c-42b8-87c4-3ea5ab2e9ac3
       authorizationserver:
         client:
           syk-inn:

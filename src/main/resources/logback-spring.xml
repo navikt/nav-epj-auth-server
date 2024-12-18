@@ -18,7 +18,7 @@
         </appender>
         <logger name="org.springframework.security" level="trace"/>
     </springProfile>
-    <root level="info">
+    <root level="trace">
         <appender-ref ref="stdout"/>
     </root>
 </configuration>

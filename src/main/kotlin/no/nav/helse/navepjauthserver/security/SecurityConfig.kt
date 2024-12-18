@@ -50,7 +50,7 @@ class SecurityConfig {
       authorizeHttpRequests {
         authorize("/login/**", permitAll)
         authorize("/error/**", permitAll)
-        authorize("/internal/actuator/**", permitAll)
+        authorize("/internal/monitoring/**", permitAll)
         authorize(anyRequest, authenticated)
       }
       csrf { disable() }

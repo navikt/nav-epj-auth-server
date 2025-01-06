@@ -12,20 +12,31 @@ spring:
     name: nav-epj-auth-server
   security:
     oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: "https://helseid-sts.test.nhn.no"
       client:
         registration:
-          helseid:
-            provider: helseid
-            client-id: 14c1f2b2-885c-42b8-87c4-3ea5ab2e9ac3
+          nav-epj-auth-server: # Matches the name of this application
+            provider: helse-id
+            client-id: "14c1f2b2-885c-42b8-87c4-3ea5ab2e9ac3"
+            client-authentication-method: "private_key_jwt"
+            authorization-grant-type: "authorization_code"
+            scope:
+              - "openid"
+              - "profile"
+              - "helseid://scopes/identity/pid"
+              - "helseid://scopes/identity/security_level"
+            redirect-uri: "${server.base-url}/login/oauth2/code/${spring.application.name}"
+        provider:
+          helse-id:
+            authorization-uri: ${helseid.base-url}/connect/authorize
+            token-uri: ${helseid.base-url}/connect/token
+            user-info-uri: ${helseid.base-url}/userinfo
+            user-name-attribute: "sub"
+            jwk-set-uri: ${helseid.base-url}/.well-known/openid-configuration/jwks
       authorizationserver:
         client:
           syk-inn:
             registration:
               client-id: "syk-inn"
-              #client-secret: "{noop}nav-fhir-server-secret"
               client-authentication-methods:
                 - "private_key_jwt"
               authorization-grant-types:
@@ -43,14 +54,12 @@ spring:
                 - "patient/*.read"
                 - "user/*.read"
                 - "offline_access"
-            # jwk-set-uri: "http://localhost:3000/oauth2/jwks" # TODO only necessary for opaque access tokens
-            # jwk-set-uri: "https://syk-inn.ekstern.dev.nav.no/jwks"
             require-authorization-consent: false
+            require-proof-key: true
             token-endpoint-authentication-signing-algorithm: "RS256"
           nav-smart-on-fhir-example:
             registration:
               client-id: "NAV_SMART_on_FHIR_example"
-              # client-secret: "{noop}nav-smart-on-fhir-example-secret" TODO not necessary for private_key_jwt
               client-authentication-methods:
                 - "private_key_jwt"
               authorization-grant-types:
@@ -68,8 +77,6 @@ spring:
                 - "patient/*.*"
                 - "user/*.*"
                 - "offline_access"
-            # jwk-set-uri: "http://localhost:5173/oauth2/jwks" # TODO only necessary for opaque access tokens
-            # jwk-set-uri: "https://nav-on-fhir.ekstern.dev.nav.no/jwks"
             require-authorization-consent: true
+            require-proof-key: true
             token-endpoint-authentication-signing-algorithm: "RS256"
-

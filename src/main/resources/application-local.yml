@@ -1,7 +1,13 @@
 server:
   port: 9000
+  base-url: "http://localhost:${server.port}"
 management:
     endpoint:
       health:
         probes:
           enabled: true
+
+helseid:
+  base-url: "https://helseid-sts.test.nhn.no"
+  openid:
+    jwk: 'your plaintext jwk'

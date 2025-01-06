@@ -25,11 +25,15 @@ repositories {
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-oauth2-authorization-server")
+  implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+  implementation("org.springframework.security:spring-security-oauth2-jose")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("net.logstash.logback:logstash-logback-encoder:8.0")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
-  implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+  implementation("com.nimbusds:nimbus-jose-jwt:9.47")
+
   developmentOnly("org.springframework.boot:spring-boot-devtools")
+
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 

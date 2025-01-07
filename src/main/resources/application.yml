@@ -82,6 +82,6 @@ spring:
             token-endpoint-authentication-signing-algorithm: "RS256"
 
 helseid:
-  base-url: "https://helseid-sts.test.nhn.no"
+  base-url: ${helseid.base-url}
   openid:
     jwk: ${helseid.openid.jwk}

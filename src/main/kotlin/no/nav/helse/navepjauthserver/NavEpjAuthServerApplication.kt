@@ -6,7 +6,6 @@ import org.springframework.boot.runApplication
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 
 @SpringBootApplication
-@EnableWebSecurity(debug = true)
 class NavEpjAuthServerApplication
 
 fun main(args: Array<String>) {

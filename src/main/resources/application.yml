@@ -80,3 +80,8 @@ spring:
             require-authorization-consent: true
             require-proof-key: true
             token-endpoint-authentication-signing-algorithm: "RS256"
+
+helseid:
+  base-url: "https://helseid-sts.test.nhn.no"
+  openid:
+    jwk: ${helseid.openid.jwk}

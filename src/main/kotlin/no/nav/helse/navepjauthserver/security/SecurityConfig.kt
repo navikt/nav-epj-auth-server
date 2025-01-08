@@ -50,7 +50,7 @@ class SecurityConfig(
 
       exceptionHandling {
         defaultAuthenticationEntryPointFor(
-          LoginUrlAuthenticationEntryPoint("/authorization/nav-epj-auth-server"),
+          LoginUrlAuthenticationEntryPoint("/oauth2/authorization/nav-epj-auth-server"),
           MediaTypeRequestMatcher(MediaType.TEXT_HTML)
         )
       }

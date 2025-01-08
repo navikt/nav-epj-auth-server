@@ -16,7 +16,9 @@ spec:
     - {{ingress}}
   liveness:
     path: /monitoring/health/liveness
+    delay: 120
   readiness:
+    delay: 120
     path: /monitoring/health/readiness
     initialDelay: 30
   accessPolicy:

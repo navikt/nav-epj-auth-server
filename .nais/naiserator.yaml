@@ -23,6 +23,7 @@ spec:
     inbound:
       rules:
         - application: nav-fhir-server
+        - application: nav-epj-auth-server
     outbound:
       external:
         - host: helseid-sts.test.nhn.no

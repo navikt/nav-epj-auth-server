@@ -24,7 +24,7 @@ spring:
               - "profile"
               - "helseid://scopes/identity/pid"
               - "helseid://scopes/identity/security_level"
-            redirect-uri: "${server.base-url}/login/oauth2/code/${spring.application.name}"
+            redirect-uri: "${server.base-url}/login/code/${spring.application.name}"
         provider:
           helse-id:
             authorization-uri: ${helseid.base-url}/connect/authorize

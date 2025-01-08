@@ -15,7 +15,7 @@ class HelseIdUserService : OAuth2UserService<OidcUserRequest, OidcUser> {
     requireNotNull(userRequest) { "userRequest must not be null" }
 
     // Extract relevant claims from the ID token
-    val userFhirId = userRequest.clientRegistration.providerDetails.userInfoEndpoint.userNameAttributeName
+    val userFhirId = userRequest.idToken.subject
 
     /** TODO
      * This should be matched via HelseID Behandler Kategori, so for example

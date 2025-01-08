@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.annotation.Order
-import org.springframework.http.MediaType
-import org.springframework.security.config.Customizer
-import org.springframework.security.config.Customizer.withDefaults
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.invoke
@@ -21,8 +18,6 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint
-import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
@@ -48,13 +43,6 @@ class SecurityConfig(
         authorize(anyRequest, authenticated)
       }
 
-      exceptionHandling {
-        defaultAuthenticationEntryPointFor(
-          LoginUrlAuthenticationEntryPoint("/oauth2/authorization/nav-epj-auth-server"),
-          MediaTypeRequestMatcher(MediaType.TEXT_HTML)
-        )
-      }
-
       headers {
         frameOptions { sameOrigin }
       }
@@ -71,7 +59,7 @@ class SecurityConfig(
   ): SecurityFilterChain {
     http {
       authorizeHttpRequests {
-        authorize("/login/**", permitAll)
+        authorize("/**", permitAll)
         authorize("/error/**", permitAll)
         authorize("/monitoring/**", permitAll)
         authorize(anyRequest, authenticated)

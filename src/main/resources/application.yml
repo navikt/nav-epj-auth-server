@@ -14,7 +14,7 @@ spring:
     oauth2:
       client:
         registration:
-          nav-epj-auth-server: # Matches the name of this application
+          nav-epj-auth-server:
             provider: helse-id
             client-id: "14c1f2b2-885c-42b8-87c4-3ea5ab2e9ac3"
             client-authentication-method: "private_key_jwt"
@@ -24,16 +24,33 @@ spring:
               - "profile"
               - "helseid://scopes/identity/pid"
               - "helseid://scopes/identity/security_level"
-            redirect-uri: "https://auth-fhir.ekstern.dev.nav.no/login/code/${spring.application.name}"
+            redirect-uri: "${server.base-url}/login/oauth2/code/nav-epj-auth-server"
+            client-name: "NAV EPJ Auth Server"
         provider:
           helse-id:
-            authorization-uri: ${helseid.base-url}/connect/authorize
-            token-uri: ${helseid.base-url}/connect/token
-            user-info-uri: ${helseid.base-url}/userinfo
-            user-name-attribute: "sub"
-            jwk-set-uri: ${helseid.base-url}/.well-known/openid-configuration/jwks
+            authorization-uri: "https://helseid-sts.test.nhn.no/connect/authorize"
+            token-uri: "https://helseid-sts.test.nhn.no/connect/token"
+            user-info-uri: "https://helseid-sts.test.nhn.no/userinfo"
+            # user-name-attribute: "sub"
+            jwk-set-uri: "https://helseid-sts.test.nhn.no/.well-known/openid-configuration/jwks"
       authorizationserver:
         client:
+          nav-epj:
+            registration:
+              client-id: "nav-epj"
+              client-authentication-methods:
+                - "private_key_jwt"
+              authorization-grant-types:
+                - "authorization_code"
+              redirect-uris:
+                - "http://localhost:3005/oauth2/callback"
+              scopes:
+                - "openid"
+                - "profile"
+            require-authorization-consent: false
+            require-proof-key: true
+            token-endpoint-authentication-signing-algorithm: "RS256"
+            # jwk-set-uri: TODO what is?
           syk-inn:
             registration:
               client-id: "syk-inn"
@@ -80,6 +97,3 @@ spring:
             require-authorization-consent: true
             require-proof-key: true
             token-endpoint-authentication-signing-algorithm: "RS256"
-
-helseid:
-  base-url: "https://helseid-sts.test.nhn.no"

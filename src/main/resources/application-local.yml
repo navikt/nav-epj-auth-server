@@ -1,12 +1,90 @@
 server:
   port: 9000
-  base-url: "http://localhost:${server.port}"
 management:
-    endpoint:
-      health:
-        probes:
-          enabled: true
-
+  endpoint:
+    health:
+      probes:
+        enabled: true
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          nav-epj-auth-server:
+            provider: helse-id
+            client-id: "14c1f2b2-885c-42b8-87c4-3ea5ab2e9ac3"
+            client-authentication-method: "private_key_jwt"
+            authorization-grant-type: "authorization_code"
+            scope:
+              - "openid"
+              - "profile"
+              - "helseid://scopes/identity/pid"
+              - "helseid://scopes/identity/security_level"
+            redirect-uri: "http://localhost:9000/login/oauth2/code/nav-epj-auth-server"
+            client-name: "NAV EPJ Auth Server"
+      authorizationserver:
+        client:
+          nav-epj: # TODO NB! This config is different from application.yml
+            registration:
+              client-id: "nav-epj"
+              client-secret: "{noop}secret"
+              client-authentication-methods:
+                - "client_secret_post"
+              authorization-grant-types:
+                - "authorization_code"
+                - "refresh_token"
+              redirect-uris:
+                - "http://localhost:3005/oauth2/callback"
+              scopes:
+                - "openid"
+                - "profile"
+            require-authorization-consent: false
+            require-proof-key: true
+            token-endpoint-authentication-signing-algorithm: "RS256"
+          syk-inn:
+            registration:
+              client-id: "syk-inn"
+              client-authentication-methods:
+                - "private_key_jwt"
+              authorization-grant-types:
+                - "client_credentials"
+                - "authorization_code"
+                - "refresh_token"
+              redirect-uris:
+                - "http://localhost:3000/fhir/"
+              scopes:
+                - "openid"
+                - "profile"
+                - "fhirUser"
+                - "launch"
+                - "patient/*.read"
+                - "user/*.read"
+                - "offline_access"
+            require-authorization-consent: false
+            require-proof-key: true
+            token-endpoint-authentication-signing-algorithm: "RS256"
+          nav-smart-on-fhir-example:
+            registration:
+              client-id: "NAV_SMART_on_FHIR_example"
+              client-authentication-methods:
+                - "private_key_jwt"
+              authorization-grant-types:
+                - "client_credentials"
+                - "authorization_code"
+                - "refresh_token"
+              redirect-uris:
+                - "http://localhost:5173/"
+              scopes:
+                - "openid"
+                - "profile"
+                - "fhirUser"
+                - "launch"
+                - "patient/*.*"
+                - "user/*.*"
+                - "offline_access"
+            require-authorization-consent: true
+            require-proof-key: true
+            token-endpoint-authentication-signing-algorithm: "RS256"
 helseid:
   openid:
     jwk: "your plaintext jwk"

@@ -25,7 +25,7 @@ spring:
               - "profile"
               - "helseid://scopes/identity/pid"
               - "helseid://scopes/identity/security_level"
-            redirect-uri: "https://auth-fhir.ekstern.dev.nav.no/login/code/${spring.application.name}"
+            redirect-uri: "https://auth-fhir.ekstern.dev.nav.no/login/oauth2/code/${spring.application.name}"
             client-name: "NAV EPJ Auth Server"
         provider:
           helse-id:

@@ -11,7 +11,7 @@
             <appender-ref ref="stdout"/>
         </logger>
         <logger name="no.nav" level="trace"/>
-        <logger name="org.springframework.security.oauth2" level="debug"/>
+        <logger name="org.springframework.security.oauth2" level="trace"/>
     </springProfile>
     <springProfile name="gcp">
         <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">

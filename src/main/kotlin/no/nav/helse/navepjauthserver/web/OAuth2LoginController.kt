@@ -17,11 +17,11 @@ class OAuth2LoginController {
     model: Model,
     @RegisteredOAuth2AuthorizedClient("nav-epj-auth-server") authorizedClient: OAuth2AuthorizedClient,
     @AuthenticationPrincipal oAuth2User: OAuth2User
-  ): ResponseEntity<String> {
+  ): ResponseEntity<Model> {
     model.addAttribute("userName", oAuth2User.name)
     model.addAttribute("clientName", authorizedClient.clientRegistration.clientName)
     model.addAttribute("userAttributes", oAuth2User.attributes)
-    return ResponseEntity.ok("You are logged in!")
+    return ResponseEntity.ok(model)
   }
 
 }

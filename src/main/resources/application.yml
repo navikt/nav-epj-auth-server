@@ -25,7 +25,7 @@ spring:
               - "profile"
               - "helseid://scopes/identity/pid"
               - "helseid://scopes/identity/security_level"
-            redirect-uri: "https://auth-fhir.ekstern.dev.nav.no/login/oauth2/code/${spring.application.name}"
+            redirect-uri: "http://localhost:9000/login/oauth2/code/nav-epj-auth-server"
             client-name: "NAV EPJ Auth Server"
         provider:
           helse-id:
@@ -39,10 +39,12 @@ spring:
           nav-epj:
             registration:
               client-id: "nav-epj"
+              client-secret: "{noop}secret"
               client-authentication-methods:
-                - "private_key_jwt"
+                - "client_secret_post"
               authorization-grant-types:
                 - "authorization_code"
+                - "refresh_token"
               redirect-uris:
                 - "http://localhost:3005/oauth2/callback"
               scopes:

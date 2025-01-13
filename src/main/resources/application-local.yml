@@ -82,9 +82,9 @@ spring:
                 - "patient/*.*"
                 - "user/*.*"
                 - "offline_access"
-            require-authorization-consent: true
-            require-proof-key: true
+            require-authorization-consent: false
+            require-proof-key: false
             token-endpoint-authentication-signing-algorithm: "RS256"
 helseid:
   openid:
-    jwk: "your plaintext jwk"
+    jwk: ${HELSE_ID_JWK}

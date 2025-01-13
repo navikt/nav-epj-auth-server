@@ -18,12 +18,13 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 class SecurityConfig(
   @Value("\${helseid.openid.jwk}") private val helseIdOpenidJwk: String
 ) {
@@ -37,14 +38,22 @@ class SecurityConfig(
 
       with(authorizationServerConfigurer) {
         oidc { } // Enable OpenID Connect 1.0
-      }
 
-      authorizeHttpRequests {
-        authorize(anyRequest, authenticated)
+        exceptionHandling {
+          authenticationEntryPoint = LoginUrlAuthenticationEntryPoint("/oauth2/authorization/nav-epj-auth-server")
+        }
       }
 
       headers {
         frameOptions { sameOrigin }
+      }
+
+      csrf {
+        disable()
+      }
+
+      cors {
+        configurationSource = corsConfigurationSource()
       }
     }
     return http.build()
@@ -59,14 +68,13 @@ class SecurityConfig(
   ): SecurityFilterChain {
     http {
       authorizeHttpRequests {
-        authorize("/**", permitAll)
+        authorize("/login/**", permitAll)
         authorize("/error/**", permitAll)
         authorize("/monitoring/**", permitAll)
         authorize(anyRequest, authenticated)
       }
 
       oauth2Login {
-
         authorizationEndpoint {
           authorizationRequestResolver = pkceAddingResolver(repo)
         }
@@ -74,13 +82,6 @@ class SecurityConfig(
         tokenEndpoint {
           accessTokenResponseClient = tokenResponseClient
         }
-
-      }
-
-      csrf { disable() }
-
-      cors {
-        configurationSource = corsConfigurationSource()
       }
     }
     return http.build()
@@ -112,7 +113,7 @@ class SecurityConfig(
     val config =
       CorsConfiguration().apply {
         allowedOriginPatterns =
-          listOf("https://*.dev.nav.no", "http://localhost:[*]", "http://127.0.0.1:[*]")
+          listOf("https://*.dev.nav.no/", "http://localhost:[*]/", "http://127.0.0.1:[*]/")
         allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
         allowedHeaders = listOf("Authorization", "Content-Type", "X-Requested-With")
         allowCredentials = true

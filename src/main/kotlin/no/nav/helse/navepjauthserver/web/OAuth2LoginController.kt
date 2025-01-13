@@ -24,4 +24,9 @@ class OAuth2LoginController {
     return ResponseEntity.ok(model)
   }
 
+  @GetMapping("/this-should/trigger-oauth2")
+  fun protectedResource(): ResponseEntity<String> {
+    return ResponseEntity.ok("Hello from protected resource!")
+  }
+
 }

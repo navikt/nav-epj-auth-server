@@ -45,7 +45,7 @@ class SecurityConfig(
       }
 
       headers {
-        frameOptions { sameOrigin }
+        frameOptions { disable() }
       }
 
       csrf {

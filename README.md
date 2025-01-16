@@ -2,7 +2,7 @@
 
 ## Context
 
-TODO
+Ensure you set the HELSE_ID_JWK environment variable with your JWK. If you do not have a JWK, ask the devs for one.
 
 ## Requirements
 

@@ -42,6 +42,9 @@ jobs:
           distribution: temurin
           cache: gradle
 
+      - name: Kjører tester
+        run: ./gradlew test
+
       - name: Kompilerer, bygger  og pusher image
         id: kompiler
         run: |

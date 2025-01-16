@@ -1,0 +1,3 @@
+helseid:
+    openid:
+        jwk: '{  "alg": "PS512",  "d": ""}'

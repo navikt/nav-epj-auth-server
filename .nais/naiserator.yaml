@@ -25,6 +25,7 @@ spec:
     inbound:
       rules:
         - application: nav-fhir-server
+        - application: nav-epj-wonderwall
     outbound:
       external:
         - host: helseid-sts.test.nhn.no

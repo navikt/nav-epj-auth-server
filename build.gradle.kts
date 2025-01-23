@@ -3,7 +3,7 @@ import org.cyclonedx.gradle.CycloneDxTask
 plugins {
   kotlin("jvm") version "2.1.0"
   kotlin("plugin.spring") version "2.1.0"
-  id("org.springframework.boot") version "3.4.1"
+  id("org.springframework.boot") version "3.4.2"
   id("io.spring.dependency-management") version "1.1.7"
   id ("com.google.cloud.tools.jib") version "3.4.4"
   id ("org.cyclonedx.bom") version "1.10.0"

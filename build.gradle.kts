@@ -30,7 +30,7 @@ dependencies {
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("net.logstash.logback:logstash-logback-encoder:8.0")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
-  implementation("com.nimbusds:nimbus-jose-jwt:10.0.1")
+  implementation("com.nimbusds:nimbus-jose-jwt:10.1")
 
   developmentOnly("org.springframework.boot:spring-boot-devtools")
 

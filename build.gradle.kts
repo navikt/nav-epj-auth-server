@@ -28,7 +28,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
   implementation("org.springframework.security:spring-security-oauth2-jose")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
-  implementation("net.logstash.logback:logstash-logback-encoder:8.0")
+  implementation("net.logstash.logback:logstash-logback-encoder:8.1")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("com.nimbusds:nimbus-jose-jwt:10.0.1")
 

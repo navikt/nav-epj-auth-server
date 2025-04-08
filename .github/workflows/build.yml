@@ -53,7 +53,7 @@ jobs:
           echo "DIGEST=$(cat build/jib-image.digest)" >> $GITHUB_ENV
 
       - name: Attest and sign
-        uses: nais/attest-sign@v1.5.11
+        uses: nais/attest-sign@v1.5.13
         with:
           image_ref: ${{env.IMAGE}}@${{env.DIGEST}}
           sbom: build/reports/application.cdx.json
